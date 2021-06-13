@@ -13,9 +13,12 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    fetch("http://localhost:3000/tasks")
+    fetch("http://localhost:9393/tasks")
     .then(res => res.json())
-    .then(tasks => this.setState({ tasks }))
+    .then(tasks => {
+      console.log(tasks)
+      this.setState({ tasks })
+    })
   }
 
   handleClick =(event) => {
@@ -26,7 +29,7 @@ class App extends React.Component {
 
   handleDelete  = (deleteTask) => {
 
-    fetch("http://localhost:3000/tasks/"+deleteTask.id, {
+    fetch("http://localhost:9393/tasks/"+deleteTask.id, {
       method: "DELETE",
     })
 
@@ -38,7 +41,7 @@ class App extends React.Component {
   handleAddTask = (e) => {
     e.preventDefault()
 
-    fetch("http://localhost:3000/tasks", {
+    fetch("http://localhost:9393/tasks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -50,10 +53,13 @@ class App extends React.Component {
     })
     .then(res => res.json())
     .then(addedTask => {
+      console.log(addedTask)
+      console.log("after log")
       this.setState({
         tasks: [...this.state.tasks, addedTask], 
         newTask: ""
       })
+      console.log("made it out of update")
     })
   }
 
